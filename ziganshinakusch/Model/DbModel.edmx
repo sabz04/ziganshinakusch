@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DbModelStoreContainer">
+    <EntitySet Name="Users" EntityType="DbModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GoodSet" EntityType="DbModel.Store.GoodSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Buckets" EntityType="DbModel.Store.Buckets" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderSet" EntityType="DbModel.Store.OrderSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserBucket" Association="DbModel.Store.UserBucket">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Bucket" EntitySet="Buckets" />
+    </AssociationSet>
+    <AssociationSet Name="BucketGood" Association="DbModel.Store.BucketGood">
+      <End Role="Bucket" EntitySet="Buckets" />
+      <End Role="Good" EntitySet="GoodSet" />
+    </AssociationSet>
+    <AssociationSet Name="BucketOrder" Association="DbModel.Store.BucketOrder">
+      <End Role="Bucket" EntitySet="Buckets" />
+      <End Role="Order" EntitySet="OrderSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CardNumber" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="GoodSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Info" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Price" Type="bigint" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BucketId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Buckets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TotalPrice" Type="bigint" Nullable="false" />
+    <Property Name="Count" Type="bigint" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BucketId" Type="int" Nullable="true" />
+    <Property Name="Items" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BucketId1" Type="int" Nullable="true" />
+  </EntityType>
+  <Association Name="UserBucket">
+    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
+    <End Role="Bucket" Type="DbModel.Store.Buckets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bucket">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BucketGood">
+    <End Role="Bucket" Type="DbModel.Store.Buckets" Multiplicity="0..1" />
+    <End Role="Good" Type="DbModel.Store.GoodSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bucket">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Good">
+        <PropertyRef Name="BucketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BucketOrder">
+    <End Role="Bucket" Type="DbModel.Store.Buckets" Multiplicity="0..1" />
+    <End Role="Order" Type="DbModel.Store.OrderSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bucket">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="BucketId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DbModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="DbModel.User" />
+          <EntitySet Name="GoodSet" EntityType="DbModel.Good" />
+          <EntitySet Name="Buckets" EntityType="DbModel.Bucket" />
+          <EntitySet Name="OrderSet" EntityType="DbModel.Order" />
+          <AssociationSet Name="UserBucket" Association="DbModel.UserBucket">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Bucket" EntitySet="Buckets" />
+          </AssociationSet>
+          <AssociationSet Name="BucketGood" Association="DbModel.BucketGood">
+            <End Role="Bucket" EntitySet="Buckets" />
+            <End Role="Good" EntitySet="GoodSet" />
+          </AssociationSet>
+          <AssociationSet Name="BucketOrder" Association="DbModel.BucketOrder">
+            <End Role="Bucket" EntitySet="Buckets" />
+            <End Role="Order" EntitySet="OrderSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="true" />
+          <Property Name="CardNumber" Type="String" Nullable="true" />
+          <Property Name="Email" Type="String" Nullable="true" />
+          <NavigationProperty Name="Bucket" Relationship="DbModel.UserBucket" FromRole="User" ToRole="Bucket" />
+          <Property Name="FullName" Type="String" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Good">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Info" Type="String" Nullable="true" />
+          <Property Name="Price" Type="Int64" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="true" />
+          <NavigationProperty Name="Bucket" Relationship="DbModel.BucketGood" FromRole="Good" ToRole="Bucket" />
+          <Property Name="BucketId" Type="Int32" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Bucket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TotalPrice" Type="Int64" Nullable="false" />
+          <Property Name="Count" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DbModel.UserBucket" FromRole="Bucket" ToRole="User" />
+          <NavigationProperty Name="Good" Relationship="DbModel.BucketGood" FromRole="Bucket" ToRole="Good" />
+          <NavigationProperty Name="Order" Relationship="DbModel.BucketOrder" FromRole="Bucket" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <Property Name="BucketId" Type="Int32" Nullable="true" />
+          <Property Name="Items" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bucket" Relationship="DbModel.BucketOrder" FromRole="Order" ToRole="Bucket" />
+          <Property Name="BucketId1" Type="Int32" Nullable="true" />
+        </EntityType>
+        <Association Name="UserBucket">
+          <End Type="DbModel.User" Role="User" Multiplicity="1" />
+          <End Type="DbModel.Bucket" Role="Bucket" Multiplicity="0..1" />
+        </Association>
+        <Association Name="BucketGood">
+          <End Type="DbModel.Bucket" Role="Bucket" Multiplicity="0..1" />
+          <End Type="DbModel.Good" Role="Good" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bucket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Good">
+              <PropertyRef Name="BucketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BucketOrder">
+          <End Type="DbModel.Bucket" Role="Bucket" Multiplicity="0..1" />
+          <End Type="DbModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bucket">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="BucketId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="DbModelContainer">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoodSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Good)">
+        <MappingFragment StoreEntitySet="GoodSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="BucketId" ColumnName="BucketId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Buckets">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Bucket)">
+        <MappingFragment StoreEntitySet="Buckets">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Order)">
+        <MappingFragment StoreEntitySet="OrderSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="BucketId" ColumnName="BucketId" />
+          <ScalarProperty Name="Items" ColumnName="Items" />
+          <ScalarProperty Name="BucketId1" ColumnName="BucketId1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserBucket" TypeName="DbModel.UserBucket" StoreEntitySet="Buckets">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Bucket">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

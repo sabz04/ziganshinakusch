@@ -1,0 +1,27 @@
+﻿<Window x:Class="ziganshinakusch.Windows.PayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ziganshinakusch.Windows"
+        mc:Ignorable="d"
+        Icon="/Images/icon.png"
+        WindowStartupLocation="CenterScreen"
+        Title="Try me on" Height="300" Width="250">
+    <Grid>
+        <StackPanel>
+            <ListBox
+                x:Name="checkList"
+                
+                ></ListBox>
+            <Button
+                x:Name="acceptBTN"
+                Click="acceptBTN_Click"
+                FontSize="14"
+                Width="100"
+                Height="25"
+                Style="{StaticResource btnStyle}"
+                >Подтвердить</Button>
+        </StackPanel>
+    </Grid>
+</Window>
