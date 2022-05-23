@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/15/2022 13:41:04
+-- Date Created: 05/16/2022 23:38:05
 -- Generated from EDMX file: D:\progs\ziganshinakusch\ziganshinakusch\Model\DbModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [C:\USERS\SABIROV\DOCUMENTS\NEWDBSABSAB.MDF];
+USE [C:\USERS\SABIROV\DOCUMENTS\DSASDASDASD.MDF];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -56,7 +56,8 @@ CREATE TABLE [dbo].[Users] (
     [Phone] nvarchar(max)  NULL,
     [CardNumber] nvarchar(max)  NULL,
     [Email] nvarchar(max)  NULL,
-    [FullName] nvarchar(max)  NULL
+    [FullName] nvarchar(max)  NULL,
+    [Role] nvarchar(max)  NULL
 );
 GO
 
@@ -67,7 +68,8 @@ CREATE TABLE [dbo].[GoodSet] (
     [Info] nvarchar(max)  NULL,
     [Price] bigint  NOT NULL,
     [Type] nvarchar(max)  NULL,
-    [BucketId] int  NULL
+    [BucketId] int  NULL,
+    [File] varbinary(max)  NULL
 );
 GO
 
@@ -128,7 +130,7 @@ ADD CONSTRAINT [FK_UserBucket]
     FOREIGN KEY ([User_Id])
     REFERENCES [dbo].[Users]
         ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserBucket'

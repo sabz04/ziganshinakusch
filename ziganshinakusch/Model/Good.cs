@@ -20,6 +20,7 @@ namespace ziganshinakusch.Model
         public long Price { get; set; }
         public string Type { get; set; }
         public Nullable<int> BucketId { get; set; }
+        public byte[] File { get; set; }
     
         public virtual Bucket Bucket { get; set; }
     }

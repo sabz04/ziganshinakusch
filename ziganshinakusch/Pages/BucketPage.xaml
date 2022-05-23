@@ -17,13 +17,16 @@
         <StackPanel Grid.Row="1">
             <TextBlock Style="{StaticResource tbStandart}"
                        FontSize="24px"
+                       Margin="5"
                        x:Name="totalPriceTb"
                        FontWeight="Bold"
                        HorizontalAlignment="Left"></TextBlock>
             <TextBlock Style="{StaticResource tbStandart}"
+                       Margin="5"
                        x:Name="countTB"
                        HorizontalAlignment="Left"></TextBlock>
-            <WrapPanel>
+            <WrapPanel
+                Margin="5,0,0,0">
                 <Button
                 x:Name="backBTN"
                 Click="backBTN_Click"

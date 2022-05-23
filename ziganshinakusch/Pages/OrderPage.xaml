@@ -9,6 +9,8 @@
       Title="OrderPage">
 
     <Grid>
-        <WrapPanel x:Name="orderPanel"/>
+        <ScrollViewer>
+            <WrapPanel x:Name="orderPanel"/>
+        </ScrollViewer>
     </Grid>
 </Page>

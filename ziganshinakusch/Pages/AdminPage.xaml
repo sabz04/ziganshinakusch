@@ -1,0 +1,160 @@
+﻿<Page x:Class="ziganshinakusch.Pages.AdminPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ziganshinakusch.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="549*"/>
+            <ColumnDefinition Width="251*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid
+            IsReadOnly="True"
+            FontFamily="/Fonts/#Montserrat"
+            x:Name="goodsGrid"
+            SelectionChanged="goodsGrid_SelectionChanged"
+            FontSize="15"
+            Background="Transparent">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Фото">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image
+                                Source="{Binding File}"
+                                x:Name="gridImg" 
+                                Height="25"
+                                ></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                   Header="Номер" 
+                    Binding="{Binding Id}"
+                    ></DataGridTextColumn>
+                <DataGridTextColumn
+                   Header="Название" 
+                    Binding="{Binding Name}"
+                    ></DataGridTextColumn>
+                <DataGridTextColumn
+                   Header="Инф." 
+                    Binding="{Binding Info}"
+                    ></DataGridTextColumn>
+                <DataGridTextColumn
+                   Header="Стоимость" 
+                    Binding="{Binding Price}"
+                    ></DataGridTextColumn>
+                <DataGridTextColumn
+                   Header="Тип" 
+                    Binding="{Binding Type}"
+                    ></DataGridTextColumn>
+                <DataGridTextColumn
+                   Header="Номер Корзины" 
+                    Binding="{Binding BucketId}"
+                    ></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ScrollViewer
+            Grid.Column="2">
+            <StackPanel
+            
+            >
+                <Image
+                PreviewMouseDown="goofIMG_PreviewMouseDown"
+                Height="80"
+                Width="100"
+                Cursor="Hand"
+                Stretch="Uniform"
+                x:Name="goofIMG"
+                AllowDrop="True"
+                Source="/Images/no_image.png"
+
+                >
+                </Image>
+                <TextBlock
+            Style="{StaticResource tbStandart}">Название</TextBlock>
+                <TextBox
+                x:Name="NameTB"
+                Style="{StaticResource tbStand}"
+                ></TextBox>
+                <TextBlock
+            Style="{StaticResource tbStandart}">Описание</TextBlock>
+                <TextBox
+                x:Name="infoTB"
+                TextWrapping="Wrap"
+                Style="{StaticResource tbStand}"
+                ></TextBox>
+                <TextBlock
+            Style="{StaticResource tbStandart}">Стоимость</TextBlock>
+                <TextBox
+                x:Name="priceTB"
+                Style="{StaticResource tbStand}"
+                ></TextBox>
+                <TextBlock
+            Style="{StaticResource tbStandart}">Тип</TextBlock>
+                <TextBox
+                x:Name="typeTB"
+                Style="{StaticResource tbStand}"
+                ></TextBox>
+                <WrapPanel
+                HorizontalAlignment="Center"
+                
+                >
+                    <Button
+            
+            Grid.Column="2"
+                
+            
+                x:Name="addBTN"
+                Click="addBTn_Click"
+                    Height="45"
+               Style="{StaticResource btnStyle1}" Cursor="Hand"
+                >
+                        <Image Source="/Images/add.png"/>
+                    </Button>
+                    <Button
+            
+            Grid.Column="2"
+                
+            
+                x:Name="saveBTN"
+                Click="saveBTN_Click"
+               Style="{StaticResource btnStyle1}" Cursor="Hand"
+                >
+                        <Image Source="/Images/save.png"/>
+                    </Button>
+                    <Button
+            
+            Grid.Column="2"
+                
+            Height="40"
+                x:Name="deleteBTN"
+                Click="deleteBTN_Click"
+               Style="{StaticResource btnStyle1}" Cursor="Hand"
+                >
+
+                        <Image Source="/Images/delete.png"/>
+                    </Button>
+
+                </WrapPanel>
+                <Button
+            
+            Grid.Column="2"
+                
+            Height="40"
+                x:Name="refreshBTN"
+                Click="refreshBTN_Click"
+               Style="{StaticResource btnStyle1}" Cursor="Hand"
+                >
+
+                    <Image Source="/Images/refresh.png"/>
+                </Button>
+            </StackPanel>
+        </ScrollViewer>
+        
+    </Grid>
+</Page>

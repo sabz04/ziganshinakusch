@@ -34,6 +34,7 @@
     <Property Name="CardNumber" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
     <Property Name="FullName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Role" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="GoodSet">
     <Key>
@@ -45,6 +46,7 @@
     <Property Name="Price" Type="bigint" Nullable="false" />
     <Property Name="Type" Type="nvarchar(max)" Nullable="true" />
     <Property Name="BucketId" Type="int" Nullable="true" />
+    <Property Name="File" Type="varbinary(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="Buckets">
     <Key>
@@ -66,7 +68,9 @@
     <Property Name="BucketId1" Type="int" Nullable="true" />
   </EntityType>
   <Association Name="UserBucket">
-    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1" />
+    <End Role="User" Type="DbModel.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Bucket" Type="DbModel.Store.Buckets" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
@@ -135,6 +139,7 @@
           <Property Name="Email" Type="String" Nullable="true" />
           <NavigationProperty Name="Bucket" Relationship="DbModel.UserBucket" FromRole="User" ToRole="Bucket" />
           <Property Name="FullName" Type="String" Nullable="true" />
+          <Property Name="Role" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="Good">
           <Key>
@@ -147,6 +152,7 @@
           <Property Name="Type" Type="String" Nullable="true" />
           <NavigationProperty Name="Bucket" Relationship="DbModel.BucketGood" FromRole="Good" ToRole="Bucket" />
           <Property Name="BucketId" Type="Int32" Nullable="true" />
+          <Property Name="File" Type="Binary" Nullable="true" />
         </EntityType>
         <EntityType Name="Bucket">
           <Key>
@@ -171,7 +177,9 @@
           <Property Name="BucketId1" Type="Int32" Nullable="true" />
         </EntityType>
         <Association Name="UserBucket">
-          <End Type="DbModel.User" Role="User" Multiplicity="1" />
+          <End Type="DbModel.User" Role="User" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="DbModel.Bucket" Role="Bucket" Multiplicity="0..1" />
         </Association>
         <Association Name="BucketGood">
@@ -214,6 +222,7 @@
           <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -226,6 +235,7 @@
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="BucketId" ColumnName="BucketId" />
+          <ScalarProperty Name="File" ColumnName="File" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -21,6 +21,7 @@ namespace ziganshinakusch.Model
         public string CardNumber { get; set; }
         public string Email { get; set; }
         public string FullName { get; set; }
+        public string Role { get; set; }
     
         public virtual Bucket Bucket { get; set; }
     }

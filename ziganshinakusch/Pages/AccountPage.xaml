@@ -91,6 +91,17 @@
                 Click="goodsBTN_Click"
                Style="{StaticResource btnStyle}" Cursor="Hand"
                 >К товарам</Button>
+            <Button
+            
+            Grid.Column="2"
+                
+            
+                x:Name="adminBTN"
+                Click="adminBTN_Click"
+               Style="{StaticResource btnStyle1}" Cursor="Hand"
+                >
+                <Image Source="/Images/admin.png"/>
+            </Button>
         </Grid>
         
     </Grid>

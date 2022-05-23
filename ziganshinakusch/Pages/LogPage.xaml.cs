@@ -29,23 +29,14 @@ namespace ziganshinakusch.Pages
 
         private void submitBTN_Click(object sender, RoutedEventArgs e)
         {
-            using(var db = new DbModelContainer())
-            {
-                var user = 
-                    db.Users.FirstOrDefault(x=>x.Login==logTB.Text && x.Password == passTB.Text);
-                if(user==null)
-                {
-                    MessageBox.Show("Пройдите регистрацию.");
-                    return;
-                }
-                MessageBox.Show("Пользователь найден!");
-
-                var home =
+            var user = Opers.LogMethod(logTB.Text, passTB.Text);
+            if(user == null) { return; }
+            var home =
                     new HomeWindow(user);
-                home.Show();
-                MainWindow.mainController
-                    .Close();
-            }
+            home.Show();
+            MainWindow.mainController
+                .Close();
+            
         }
 
         private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)

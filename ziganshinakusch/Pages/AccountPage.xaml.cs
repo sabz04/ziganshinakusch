@@ -26,6 +26,10 @@ namespace ziganshinakusch.Pages
         {
             InitializeComponent();
             LoadUser();
+            if(HomeWindow.currentUser.Role == "user")
+            {
+                adminBTN.Visibility = Visibility.Hidden;
+            }
         }
 
         private void LoadUser()
@@ -54,14 +58,9 @@ namespace ziganshinakusch.Pages
                 var user = 
                     db.Users.FirstOrDefault(u => u.Id == HomeWindow.currentUser.Id);
                 if (user == null) return;
-                user.Email = emailTB.Text;
-                user.Phone = phoneTB.Text;
-                user.Password = passTB.Text;
-                user.Login = logTB.Text;
-                user.CardNumber = cardTB.Text;
-                user.FullName = fullnameTB.Text;
-                db.SaveChanges();
-                HomeWindow.currentUser = user;
+                var user_edited = Opers.EditUser(user.Id, logTB.Text, passTB.Text,phoneTB.Text, emailTB.Text, cardTB.Text, fullnameTB.Text);
+                if (user_edited == null) return;
+                HomeWindow.currentUser = user_edited;
                 HomeWindow.home.CheckUser();
                 MessageBox.Show("Изменения прошли успешно.");
             }
@@ -78,8 +77,17 @@ namespace ziganshinakusch.Pages
 
         private void goodsBTN_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow.home.homeFrame
-                .Navigate(new GoodsPage());
+            using (var db = new DbModelContainer())
+            {
+                var x = new GoodsPage();
+                x.LoadGoods(db.GoodSet.ToList());
+                HomeWindow.home.homeFrame.Navigate(x);
+            }
+        }
+
+        private void adminBTN_Click(object sender, RoutedEventArgs e)
+        {
+            HomeWindow.home.homeFrame.Navigate(new AdminPage());
         }
     }
 }

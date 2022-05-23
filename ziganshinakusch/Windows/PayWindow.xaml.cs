@@ -32,6 +32,7 @@ namespace ziganshinakusch.Windows
             InitializeComponent();
             user = cuser;
             var items = "";
+            Opers.recentlyDeleted.Clear();
             user.Bucket.Good.ToList().ForEach(x => items += $"\n{x.Name}");
             checkList.Items.Add("Список товаров: " + items);
             checkList.Items.Add("Время:" + DateTime.Now.ToString());
@@ -51,6 +52,7 @@ namespace ziganshinakusch.Windows
                     Date = DateTime.Now.ToString(),
                     Items = items
                 });
+                var goods_del = curUser.Bucket.Good.ToList();
                 curUser.Bucket.Good.Clear();
                 db.SaveChanges();
                 Opers.UpdateBucket(curUser);
@@ -58,6 +60,7 @@ namespace ziganshinakusch.Windows
                 MessageBox.Show("Заказ создан.");
                 this.Hide();
                 HomeWindow.home.CheckUser();
+                goods_del.ForEach(x => Opers.recentlyDeleted.Add(x));
             }
         }
     }

@@ -87,6 +87,9 @@
     <Compile Include="Model\User.cs">
       <DependentUpon>DbModelContainer.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AdminPage.xaml.cs">
+      <DependentUpon>AdminPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,10 @@
       <DependentUpon>PayWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Pages\AccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -219,7 +226,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\order.png" />
     <Content Include="Model\DbModelContainer.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DbModelContainer.Context.cs</LastGenOutput>
@@ -230,6 +236,13 @@
       <LastGenOutput>DbModelContainer.cs</LastGenOutput>
       <DependentUpon>DbModel.edmx</DependentUpon>
     </Content>
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\save.png" />
+    <Resource Include="Images\no_image.png" />
+    <Resource Include="Images\refresh.png" />
+    <Resource Include="Images\order.png" />
+    <Resource Include="Images\admin.png" />
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\endLogo.png" />
     <Resource Include="Images\mainLogo.png" />

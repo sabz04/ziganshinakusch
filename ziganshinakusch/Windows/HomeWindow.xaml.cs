@@ -33,14 +33,14 @@ namespace ziganshinakusch.Windows
             CheckUser();
             Refresh();
         }
-        public void Refresh()
+        public void Refresh(bool flag = true)
         {
             typesCB.Items.Clear();
             using(var db = new DbModelContainer())
             {
                 typesCB.Items.Add("Все товары");
                 db.GoodSet.Select(x => x.Type).Distinct().ToList().ForEach(x => typesCB.Items.Add(x));
-                if (typesCB.Items.Count > 0)
+                if (typesCB.Items.Count > 0 && flag)
                     typesCB.SelectedIndex = 0;
             }
         }
@@ -99,7 +99,7 @@ namespace ziganshinakusch.Windows
         {
             using(var db = new DbModelContainer())
             {
-                
+                if (typesCB.SelectedItem == null) return;
                 var type = typesCB.SelectedItem.ToString();
                 var search = searchTB.Text;
                 if (type == "Все товары")

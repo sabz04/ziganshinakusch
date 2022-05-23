@@ -28,26 +28,8 @@ namespace ziganshinakusch.Pages
 
         private void submitBTN_Click(object sender, RoutedEventArgs e)
         {
-            using(var db = new DbModelContainer())
-            {
-                var user =
-                    db.Users.FirstOrDefault(x => x.Login == logTB.Text);
-                if(user != null)
-                {
-                    MessageBox.Show("Пользователь с таким именем уже зарегистрирован.");
-                    return;
-                }
-                db.Users.Add(new User
-                {
-                    Login = logTB.Text,
-                    Password = passTB.Text,
-                    Bucket = new Bucket() { Count=0, TotalPrice = 0},
-                    
-               });
+            var flag = Opers.RegMethod(logTB.Text, passTB.Text);
 
-                db.SaveChanges();
-                MessageBox.Show("Регистрация успешна!");
-            }
         }
 
         private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)

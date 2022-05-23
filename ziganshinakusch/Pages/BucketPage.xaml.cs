@@ -23,12 +23,25 @@ namespace ziganshinakusch.Pages
     /// </summary>
     public partial class BucketPage : Page
     {
+          
+        static Dictionary<Good, StackPanel> goodStackPanels = new Dictionary<Good, StackPanel>();
+        public static BucketPage bucket=null;
         Style tbstyle = Application.Current.FindResource("tbStandart3") as Style;
         Style btnstyle = Application.Current.FindResource("btnStyle1") as Style;
         public BucketPage()
         {
             InitializeComponent();
+            if (bucket != null)
+                bucket.ClearGoods();
+            
+            bucket = this;
             LoadGoods();
+        }
+
+        public void ClearGoods()
+        {
+            goodsPanel.Children.Clear();
+            Opers.recentlyDeleted.Clear();
         }
 
         private void LoadGoods()
@@ -41,11 +54,30 @@ namespace ziganshinakusch.Pages
                 var img_like = new Image();
                 var goods =
                     user.Bucket.Good;
+
                 foreach (var good in goods)
                 {
+                    bool isSkip = false;
+                    foreach (var key in goodStackPanels.Keys)
+                    {
+                        if (key.Id == good.Id)
+                        {
+                            if (key.Info != good.Info || key.Name != good.Name || key.Type != good.Type || key.File != good.File)
+                            {
+                                goodStackPanels.Remove(key);
+                                break;
+                            }
+                            goodsPanel.Children.Add(goodStackPanels[key]);
+                            isSkip = true;
+                            break;
+                        }
+                    }
+                    if (isSkip)
+                        continue;
+
                     img_like = new Image { Source = Opers.LoadImage(File.ReadAllBytes("./Images/delete.png")) };
                     var stck = new StackPanel() { Margin = new Thickness(10) };
-                    stck.Children.Add(new Image { Height = 200, Source = Opers.LoadImage(File.ReadAllBytes("./Images/women.jpeg")) });
+                    stck.Children.Add(new Image { Height = 200, Source = Opers.LoadImage(Opers.CompressByImageAlg(20, good.File)) });
                     stck.Children.Add(new TextBlock
                     {
                         FontSize = 24,
@@ -61,15 +93,15 @@ namespace ziganshinakusch.Pages
 
                     var deleted_btn = new Button { Height = 30, Style = btnstyle, Content = img_like, Name = "button" + good.Id };
                     var info_btn = new Button { Height = 30, Style = btnstyle, Content = img_info, Name = "but" + good.Id };
+                    
                     deleted_btn.Click += Deleted_btn_Click;
                     info_btn.Click += Info_btn_Click;
 
                     wrp.Children.Add(deleted_btn);
                     wrp.Children.Add(info_btn);
                     stck.Children.Add(wrp);
-                    goodsPanel.Children.Add(stck);
-
-
+                    goodStackPanels.Add(good, stck);
+                    goodsPanel.Children.Add(stck); 
                 }
                 totalPriceTb.Text = $"Сумма: {user.Bucket.TotalPrice}";
                 countTB.Text = $"Кол-во товаров:{user.Bucket.Count}";
@@ -104,20 +136,25 @@ namespace ziganshinakusch.Pages
 
 
                 user.Bucket.Good.Remove(good);
-                var img_good = (Image)(sender as Button).Content;
-
+                Opers.recentlyDeleted.Add(good);
                 good.Bucket = null;
                 db.SaveChanges();
                 Opers.UpdateBucket(user);
-                LoadGoods();
+                
+                bucket.LoadGoods();
             }
             HomeWindow.home.CheckUser();
         }
 
         private void backBTN_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow.home
-                .homeFrame.Navigate(new GoodsPage());
+            using(var db = new DbModelContainer())
+            {
+                var x = new GoodsPage();
+                x.LoadGoods(db.GoodSet.ToList());
+                HomeWindow.home.homeFrame.Navigate(x);
+            }
+            
         }
 
         private void payBTN_Click(object sender, RoutedEventArgs e)
